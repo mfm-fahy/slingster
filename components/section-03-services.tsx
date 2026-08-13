@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform, type Variants } from 'framer-motion'
+import { useReveal } from '@/lib/use-reveal'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -26,10 +27,7 @@ type Service = {
   no: string
   title: string
   desc: string
-  priceLabel: string
-  price: string
   icon: typeof Monitor
-  contact?: boolean
 }
 
 const services: Service[] = [
@@ -37,52 +35,37 @@ const services: Service[] = [
     no: '01',
     title: 'LANDING PAGE',
     desc: 'A single, high-converting page to showcase your business and drive action.',
-    priceLabel: 'STARTING AT',
-    price: '₹5,000+',
     icon: Monitor,
   },
   {
     no: '02',
     title: 'WEBSITE + LOGO DESIGN',
     desc: 'Multi-page website with custom logo, brand identity and everything you need.',
-    priceLabel: 'STARTING AT',
-    price: '₹15,000+',
     icon: PenTool,
   },
   {
     no: '03',
     title: 'E-COMMERCE WEBSITE',
     desc: 'Launch and scale your store with cart, payments, and order management.',
-    priceLabel: 'STARTING AT',
-    price: '₹25,000+',
     icon: ShoppingCart,
   },
   {
     no: '04',
     title: 'WEB & MOBILE APPS',
     desc: 'Custom web and mobile applications built for your unique business needs.',
-    priceLabel: '',
-    price: 'CUSTOM',
     icon: Smartphone,
-    contact: true,
   },
   {
     no: '05',
     title: 'MANAGEMENT SYSTEMS',
     desc: 'Powerful admin panels and systems to manage your business efficiently.',
-    priceLabel: '',
-    price: 'CUSTOM',
     icon: LayoutDashboard,
-    contact: true,
   },
   {
     no: '06',
     title: 'POSTER & GRAPHIC DESIGN',
     desc: 'Stunning posters, social creatives and brand assets that stand out.',
-    priceLabel: '',
-    price: 'CUSTOM',
     icon: Palette,
-    contact: true,
   },
 ]
 
@@ -105,8 +88,10 @@ const stagger: Variants = {
 }
 
 function ServicesIntro() {
+  const { ref, inView } = useReveal<HTMLDivElement>()
+
   return (
-    <motion.div className="svc-intro" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} variants={stagger}>
+    <motion.div ref={ref} className="svc-intro" initial={inView ? 'show' : 'hidden'} animate={inView ? 'show' : 'hidden'} variants={stagger}>
       <motion.p className="svc-eyebrow" variants={fadeUp}>
         03 | OUR SERVICES
         <span className="svc-circuit" aria-hidden="true" />
@@ -193,15 +178,6 @@ function ServiceCard({ s }: { s: Service }) {
       <h3>{s.title}</h3>
       <p className="svc-card-desc">{s.desc}</p>
       <div className="svc-card-foot">
-        <div className="svc-price">
-          {s.priceLabel && <span className="svc-price-label">{s.priceLabel}</span>}
-          <strong className="svc-price-amount">{s.price}</strong>
-          {s.contact && (
-            <a className="svc-price-contact" href="#contact">
-              Contact us
-            </a>
-          )}
-        </div>
         <button className="svc-card-arrow" type="button" aria-label={`${s.title} details`}>
           <ArrowRight />
         </button>

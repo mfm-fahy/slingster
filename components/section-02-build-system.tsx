@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform, type Variants } from '
 import { ArrowRight, Code2, PenTool, Rocket, TrendingUp, Zap } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useReveal } from '@/lib/use-reveal'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
@@ -58,9 +59,11 @@ const stagger: Variants = {
 }
 
 function SectionIntro() {
+  const { ref, inView } = useReveal<HTMLDivElement>()
+
   return (
     <div className="bs-intro">
-      <motion.div className="bs-intro-copy" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} variants={stagger}>
+      <motion.div ref={ref} className="bs-intro-copy" initial={inView ? 'show' : 'hidden'} animate={inView ? 'show' : 'hidden'} variants={stagger}>
         <motion.p className="bs-eyebrow" variants={fadeUp}>
           02 | ABOUT SLINGSTER
           <span className="bs-circuit" aria-hidden="true" />
@@ -79,9 +82,8 @@ function SectionIntro() {
       </motion.div>
       <motion.div
         className="bs-intro-media"
-        initial={{ opacity: 0, y: 44 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
+        initial={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 44 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 44 }}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
         <RobotVisual />

@@ -7,8 +7,7 @@ export const metadata: Metadata = {
   description: 'Slingster is an independent digital studio building modern websites, powerful brands, and digital products for people building something worth noticing.',
   generator: 'v0.app',
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
+    icon: [{ url: '/icon.png', type: 'image/png', sizes: 'any' }],
     apple: '/apple-icon.png',
   },
   openGraph: { title: 'Slingster — Modern Websites. Powerful Brands. Real Results.', description: 'A small studio for big digital ambitions.', type: 'website' },
