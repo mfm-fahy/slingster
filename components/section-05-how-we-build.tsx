@@ -418,7 +418,7 @@ export default function Section05HowWeBuild() {
   }, [])
 
   useIsomorphicLayoutEffect(() => {
-    if (typeof window === 'undefined' || reduced || !isDesktop) return
+    if (typeof window === 'undefined' || reduced) return
     gsap.registerPlugin(ScrollTrigger)
 
     const refresh = () => ScrollTrigger.refresh()
@@ -565,6 +565,9 @@ export default function Section05HowWeBuild() {
               </div>
 
               <aside className="hwb-right">
+                <p key={`d${active}`} className="hwb-mob-desc">
+                  {activeStage.description}
+                </p>
                 <div className="hwb-anno">
                   <p key={`m${active}`} className="hwb-anno-row">
                     MODULE / {activeStage.module}

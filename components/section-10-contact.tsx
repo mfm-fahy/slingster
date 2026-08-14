@@ -130,13 +130,13 @@ function ProjectForm() {
     timersRef.current = []
   }
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
       mountedRef.current = false
       clearTimers()
-    },
-    []
-  )
+    }
+  }, [])
 
   const validate = (): Errors => {
     const next: Errors = {}

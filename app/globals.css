@@ -621,6 +621,7 @@
 /* ---------- right column ---------- */
 .hwb-right{position:relative;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(26px,4vh,44px)}
 .hwb-anno{display:grid;gap:10px}
+.hwb-mob-desc{display:none}
 .hwb-anno-row{margin:0;padding:7px 11px;border-left:2px solid var(--primary);background:var(--muted);font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--ink-muted);animation:hwb-annotin .5s cubic-bezier(.22,1,.36,1) both}
 .hwb-progress{display:flex;flex-direction:column;gap:8px}
 .hwb-progress-num{display:flex;align-items:baseline;gap:8px;animation:hwb-annotin .5s cubic-bezier(.22,1,.36,1) both}
@@ -673,10 +674,43 @@
 }
 
 @media (max-width:1023px){
-  .hwb-intro{grid-template-columns:1fr;padding-top:clamp(100px,16vw,150px)}
+  .hwb-intro{grid-template-columns:1fr;padding-top:clamp(80px,12vw,110px);padding-bottom:clamp(40px,6vh,60px)}
   .hwb-intro-side{align-items:flex-start}
   .hwb-intro-notes{justify-content:flex-start}
-  .hwb-title{font-size:clamp(2.7rem,13vw,4.6rem)}
+  .hwb-title{font-size:clamp(2.7rem,13vw,4.6rem);margin-top:18px}
+  .hwb-title-em{margin-top:14px}
+  .hwb-sub{margin-top:16px}
+  .hwb-intro-robot{width:clamp(120px,42vw,180px)}
+  .hwb-intro-notes p{font-size:9px;padding:6px 9px}
+
+  /* ---------- mobile journey: map centre, content top & bottom ---------- */
+  .how-section:not(.is-reduced) .hwb-journey{display:block}
+  .how-section:not(.is-reduced) .hwb-mobile-stages{display:none}
+  .how-section:not(.is-reduced) .hwb-trigger{height:300vh}
+  .how-section:not(.is-reduced) .hwb-pin{height:100svh}
+
+  .how-section:not(.is-reduced) .hwb-stage-grid{height:100%;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(10px,2vh,18px);padding:clamp(12px,2.4vh,20px) clamp(18px,5vw,28px)}
+  .how-section:not(.is-reduced) .hwb-left{height:clamp(150px,25vh,200px)}
+  .how-section:not(.is-reduced) .hwb-center{min-height:0}
+  .how-section:not(.is-reduced) .hwb-center-tag{font-size:8px;padding:5px 8px;top:4px}
+  .how-section:not(.is-reduced) .hwb-visuals{display:none}
+  .how-section:not(.is-reduced) .hwb-robot{width:56px}
+  .how-section:not(.is-reduced) .hwb-stage-panel{justify-content:center}
+  .how-section:not(.is-reduced) .hwb-stage-head{gap:10px}
+  .how-section:not(.is-reduced) .hwb-stage-no{font-size:12px}
+  .how-section:not(.is-reduced) .hwb-stage-chip{font-size:9px;padding:5px 9px}
+  .how-section:not(.is-reduced) .hwb-stage-title{font-size:clamp(20px,6.4vw,28px);margin-top:14px;line-height:1.08}
+  .how-section:not(.is-reduced) .hwb-stage-desc{display:none}
+  .how-section:not(.is-reduced) .hwb-stage-rule{display:none}
+
+  .how-section:not(.is-reduced) .hwb-right{gap:clamp(10px,2vh,16px)}
+  .how-section:not(.is-reduced) .hwb-mob-desc{display:block;margin:0;color:#3f3f52;font-size:14px;line-height:1.6}
+  .how-section:not(.is-reduced) .hwb-anno{display:flex;flex-wrap:wrap;gap:8px}
+  .how-section:not(.is-reduced) .hwb-anno-row{font-size:9px;padding:6px 9px;white-space:nowrap}
+  .how-section:not(.is-reduced) .hwb-progress{display:none}
+  .how-section:not(.is-reduced) .hwb-mini{flex-direction:row;align-items:center;justify-content:space-between;gap:8px}
+  .how-section:not(.is-reduced) .hwb-mini-track{flex-direction:row;gap:8px;padding-left:0;border-left:0}
+  .how-section:not(.is-reduced) .hwb-mini-caption{margin:0}
 }
 
 /* short desktop screens */
@@ -996,7 +1030,7 @@
 .hg-cert-standfirst-2{color:var(--primary);margin-top:2px}
 .hg-cert-quote{margin:16px 0 0;font-size:clamp(11px,1.1vw,14px);line-height:1.7;color:#3f3f52;font-style:italic}
 
-.hg-cert-sign{display:flex;flex-direction:column;align-items:center;gap:8px}
+.hg-cert-sign{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;color:inherit;padding:0}
 .hg-cert-signlabel{margin:0;font-size:8px;font-weight:800;letter-spacing:.34em;color:#A4A3AE}
 .hg-cert-signline{width:180px;max-width:80%;height:1px;background:rgba(35,22,143,.5);border-top:1px dashed rgba(35,22,143,.35);border-bottom:1px solid rgba(35,22,143,.35);height:3px}
 .hg-cert-signbold{margin:2px 0 0;font-size:10px;font-weight:800;letter-spacing:.3em;color:var(--foreground)}

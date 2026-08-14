@@ -9,27 +9,34 @@ export type ProjectInquiry = {
 
 export type ProjectInquiryResult = { ok: true } | { ok: false; error: string }
 
-// DEMO MODE — there is no backend/email service connected yet.
-// While this is `true`, submission only simulates success so the UI flow can
-// be reviewed. Set to `false` and wire `submitProjectInquiry` to a real
-// endpoint (e.g. a server action, API route, or form provider) before launch.
-const DEMO_MODE = true
+const WEB3FORMS_ACCESS_KEY = '8a99f4ca-583f-4f85-898f-8b631738926b'
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
 
 export async function submitProjectInquiry(data: ProjectInquiry): Promise<ProjectInquiryResult> {
-  if (!DEMO_MODE) {
-    // TODO: connect to the real backend/email service here.
-    // Example:
-    // const res = await fetch('/api/inquiries', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data),
-    // })
-    // if (!res.ok) return { ok: false, error: 'Request failed. Please try again.' }
-    // return { ok: true }
-    void data
-    return { ok: false, error: 'No backend configured.' }
+  try {
+    const formBody = new URLSearchParams({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name: data.name,
+      email: data.email,
+      project_type: data.projectType,
+      project_kind: data.projectKind,
+      budget: data.budget,
+      message: data.description,
+    })
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
+      body: formBody,
+    })
+    const body = (await res.json()) as { success?: boolean; message?: string }
+    if (!res.ok || body.success !== true) {
+      return { ok: false, error: body.message || 'Request failed. Please try again.' }
+    }
+    return { ok: true }
+  } catch {
+    return { ok: false, error: 'Network error. Please try again.' }
   }
-
-  await new Promise((resolve) => setTimeout(resolve, 1200))
-  return { ok: true }
 }
