@@ -328,7 +328,7 @@ function SectionIntro({ disabled }: { disabled: boolean }) {
         <div className="hwb-intro-robot">
           <img
             src="/section-3/robot.png"
-            alt="Slingster robot guiding the build process"
+            alt="Stony the robot guiding the build process"
             width={1391}
             height={1131}
             loading="lazy"
@@ -356,7 +356,7 @@ function MobileStageBlock({ stage, disabled }: { stage: Stage; disabled: boolean
         <div className="hwb-mob-robot">
           <img
             src="/section-3/robot.png"
-            alt={`Slingster robot at the ${stage.label} stage`}
+            alt={`Stony the robot at the ${stage.label} stage`}
             width={1391}
             height={1131}
             loading="lazy"
@@ -555,7 +555,7 @@ export default function Section05HowWeBuild() {
                 <div className="hwb-robot">
                   <img
                     src="/section-3/robot.png"
-                    alt="Slingster robot travelling through the build pipeline"
+                    alt="Stony the robot travelling through the build pipeline"
                     width={1391}
                     height={1131}
                     loading="lazy"

@@ -140,7 +140,7 @@ function RobotVisual() {
           my.set(0)
         }}
       >
-        <img className="svc-robot-img" src="/section-3/robot.png" alt="Slingster robot" draggable={false} loading="lazy" />
+        <img className="svc-robot-img" src="/section-3/robot.png" alt="Stony the robot" draggable={false} loading="lazy" />
       </motion.div>
     </div>
   )

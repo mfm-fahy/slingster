@@ -135,7 +135,7 @@ function RobotVisual() {
           }}
         >
           <span className="bs-robot-glow" aria-hidden="true" />
-          <img className="bs-robot-img" src="/section-2/robo.png" alt="Slingster robot" draggable={false} loading="lazy" />
+          <img className="bs-robot-img" src="/section-2/robo.png" alt="Stony the robot" draggable={false} loading="lazy" />
         </motion.div>
       </div>
       <StatementCard />

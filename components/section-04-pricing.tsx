@@ -205,7 +205,7 @@ function PricingRobot({ disabled }: { disabled: boolean }) {
           <img
             className="pr-robot-img"
             src="/section-4/robo.png"
-            alt="Slingster robot floating beside the pricing plans"
+            alt="Stony the robot floating beside the pricing plans"
             width={1536}
             height={1024}
             draggable={false}
@@ -347,8 +347,8 @@ function PricingCTA({ disabled }: { disabled: boolean }) {
         </h3>
         <div className="pr-cta-info">
           <div className="pr-cta-links">
-            <a href="https://www.slingster.com" target="_blank" rel="noreferrer">
-              www.slingster.com
+            <a href="https://www.slingster.org" target="_blank" rel="noreferrer">
+              www.slingster.org
             </a>
             <a href="mailto:slingster.org@gmail.com">slingster.org@gmail.com</a>
             <a href="tel:+919943949439">+91 99439 49439</a>

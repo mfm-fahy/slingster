@@ -395,8 +395,8 @@ function ContactDetails() {
         <div className="ct-info-cell">
           <p className="ct-info-label">WEBSITE</p>
           <p className="ct-info-value">
-            <a className="ct-info-link" href="https://www.slingster.com" target="_blank" rel="noopener noreferrer">
-              www.slingster.com <ArrowUpRight className="ct-info-ext" aria-hidden="true" />
+            <a className="ct-info-link" href="https://www.slingster.org" target="_blank" rel="noopener noreferrer">
+              www.slingster.org <ArrowUpRight className="ct-info-ext" aria-hidden="true" />
             </a>
             <span className="ct-info-sub">SLINGSTER HQ</span>
           </p>
