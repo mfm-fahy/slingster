@@ -45,7 +45,7 @@ function App() {
             <div className="hero-rule" aria-hidden="true" />
             <p className="hero-intro">Modern websites, powerful brands and digital products built to move your business forward.</p>
             <div className="button-row">
-              <a className="button button-primary" href="#build-system">Explore Our Work <ArrowRight /></a>
+              <a className="button button-primary" href="#contact">Start a Project <ArrowRight /></a>
               <a className="button button-ghost" href="#services">Our Services</a>
             </div>
           </motion.div>
