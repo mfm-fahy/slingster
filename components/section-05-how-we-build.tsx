@@ -30,6 +30,7 @@ type Stage = {
   variant: StageVariant
   module: string
   status: string
+  deliverables: string[]
 }
 
 const stages: Stage[] = [
@@ -37,73 +38,81 @@ const stages: Stage[] = [
     number: '01',
     label: 'IDEA',
     title: 'EVERYTHING STARTS\nWITH A CONVERSATION.',
-    description: 'We start by understanding what you are building, who it is for and what success looks like.',
+    description: 'We start by understanding what you are building, who it is for and what success looks like. Every great product begins with a clear vision, and we make sure we capture yours before writing a single line of code.',
     variant: 'idea',
     module: 'ORIGIN',
     status: 'SIGNAL / ACTIVE',
+    deliverables: ['Project Brief', 'Vision Document', 'Goal Mapping'],
   },
   {
     number: '02',
     label: 'DISCOVER',
     title: 'UNDERSTAND\nBEFORE WE BUILD.',
-    description: 'We explore your goals, audience, requirements and the problem we need to solve.',
+    description: 'We explore your goals, audience, requirements and the problem we need to solve. Through research and discovery, we uncover insights that shape the foundation of your project and ensure we are solving the right problem.',
     variant: 'discover',
     module: 'RESEARCH',
     status: 'PROCESS / ACTIVE',
+    deliverables: ['Market Research', 'User Personas', 'Competitor Analysis'],
   },
   {
     number: '03',
     label: 'PROPOSE',
     title: 'A CLEAR PLAN.\nNO SURPRISES.',
-    description: 'We define the scope, features, timeline and direction before development begins.',
+    description: 'We define the scope, features, timeline and direction before development begins. You get a detailed roadmap with clear milestones so you always know what is being built, when and why — no guesswork involved.',
     variant: 'propose',
     module: 'BLUEPRINT',
     status: 'PLAN / LOCKED',
+    deliverables: ['Scope Document', 'Feature List', 'Timeline & Milestones'],
   },
   {
     number: '04',
     label: 'DESIGN',
     title: 'TURNING IDEAS\nINTO EXPERIENCE.',
-    description: 'We create the visual direction, structure and user experience before bringing the product to life.',
+    description: 'We create the visual direction, structure and user experience before bringing the product to life. From wireframes to pixel-perfect mockups, every detail is crafted to reflect your brand and delight your users.',
     variant: 'design',
     module: 'DESIGN',
     status: 'MODULE / DESIGN',
+    deliverables: ['Wireframes', 'UI Mockups', 'Brand Direction'],
   },
   {
     number: '05',
     label: 'BUILD',
     title: 'WHERE THE IDEA\nBECOMES REAL.',
-    description: 'We develop clean, scalable and secure systems with performance and maintainability in mind.',
+    description: 'We develop clean, scalable and secure systems with performance and maintainability in mind. Using modern frameworks and best practices, we turn designs into fast, reliable and production-ready software.',
     variant: 'build',
     module: 'DEVELOPMENT',
     status: 'BUILD PIPELINE',
+    deliverables: ['Frontend Code', 'Backend Systems', 'Database Architecture'],
   },
   {
     number: '06',
     label: 'REVIEW',
     title: 'BUILD. TEST.\nREFINE.',
-    description: 'We test the experience, fix issues and refine the details before launch.',
+    description: 'We test the experience, fix issues and refine the details before launch. Every feature is thoroughly reviewed for bugs, performance and usability to ensure your product works flawlessly across all devices.',
     variant: 'review',
     module: 'QUALITY',
     status: 'STATUS / IN PROGRESS',
+    deliverables: ['QA Testing', 'Performance Audit', 'Bug Fixes'],
   },
   {
     number: '07',
     label: 'LAUNCH',
     title: 'READY FOR\nTHE REAL WORLD.',
-    description: 'We deploy your project and make sure everything is ready for users.',
+    description: 'We deploy your project and make sure everything is ready for users. From server setup to domain configuration, we handle the technical details so your product goes live smoothly and securely.',
     variant: 'launch',
     module: 'DEPLOYMENT',
     status: 'DEPLOYMENT / READY',
+    deliverables: ['Server Setup', 'Domain & SSL', 'Go-Live Checklist'],
   },
   {
     number: '08',
     label: 'GROW',
     title: 'LAUNCH IS\nJUST THE START.',
-    description: 'From marketing and SEO to chatbots and ongoing support, we help your business keep moving forward.',
+    description: 'From marketing and SEO to chatbots and ongoing support, we help your business keep moving forward. We provide the tools, strategy and continuous improvements your product needs to thrive after launch.',
     variant: 'grow',
     module: 'GROWTH',
     status: 'SYSTEM / 08',
+    deliverables: ['SEO Strategy', 'Analytics Setup', 'Growth Roadmap'],
   },
 ]
 
@@ -316,13 +325,29 @@ function SectionIntro({ disabled }: { disabled: boolean }) {
         </p>
         <h2 className="hwb-title">
           <span className="hwb-title-line">FROM IDEA</span>
-          <span className="hwb-title-line hwb-title-line-purple">TO ONLINE.</span>
+          <span className="hwb-title-line hwb-title-line-purple">   TO ONLINE.</span>
         </h2>
         <p className="hwb-title-em">WITHOUT THE CHAOS.</p>
         <p className="hwb-sub">
           &ldquo;From the first conversation to launch and beyond, we keep the entire process clear, focused and moving
           forward.&rdquo;
         </p>
+        <div className="hwb-features">
+          <div className="hwb-feature">
+            <span className="hwb-feature-icon"><Check /></span>
+            <div>
+              <h4>TRANSPARENT PROCESS</h4>
+              <p>Every stage is visible. You always know what is happening, what is next and where your project stands.</p>
+            </div>
+          </div>
+          <div className="hwb-feature">
+            <span className="hwb-feature-icon"><Check /></span>
+            <div>
+              <h4>ONGOING SUPPORT</h4>
+              <p>Launch is not the end. We stay with you for updates, improvements and growth as your business evolves.</p>
+            </div>
+          </div>
+        </div>
       </Reveal>
       <Reveal className="hwb-intro-side" delay={0.15} disabled={disabled}>
         <div className="hwb-intro-robot">
@@ -369,6 +394,14 @@ function MobileStageBlock({ stage, disabled }: { stage: Stage; disabled: boolean
       </div>
       <h3 className="hwb-mob-title">{stage.title}</h3>
       <p className="hwb-mob-desc">{stage.description}</p>
+      <div className="hwb-mob-deliverables">
+        <span className="hwb-mob-del-label">KEY DELIVERABLES</span>
+        <ul>
+          {stage.deliverables.map((d) => (
+            <li key={d}><Check aria-hidden="true" />{d}</li>
+          ))}
+        </ul>
+      </div>
       <span className="hwb-mob-rule" aria-hidden="true" />
     </Reveal>
   )
@@ -514,6 +547,14 @@ export default function Section05HowWeBuild() {
                     </div>
                     <h3 className="hwb-stage-title">{s.title}</h3>
                     <p className="hwb-stage-desc">{s.description}</p>
+                    <div className="hwb-stage-deliverables">
+                      <span className="hwb-stage-del-label">KEY DELIVERABLES</span>
+                      <ul>
+                        {s.deliverables.map((d) => (
+                          <li key={d}><Check aria-hidden="true" />{d}</li>
+                        ))}
+                      </ul>
+                    </div>
                     <span className="hwb-stage-rule" aria-hidden="true" />
                   </article>
                 ))}
@@ -562,42 +603,40 @@ export default function Section05HowWeBuild() {
                     draggable={false}
                   />
                 </div>
+                <div className="hwb-center-bottom">
+                  <div className="hwb-anno">
+                    <p key={`m${active}`} className="hwb-anno-row">
+                      MODULE / {activeStage.module}
+                    </p>
+                    <p key={`s${active}`} className="hwb-anno-row">
+                      {activeStage.status}
+                    </p>
+                    <p key={`p${active}`} className="hwb-anno-row">
+                      PIPELINE / {activeStage.number}/08
+                    </p>
+                  </div>
+                  <div className="hwb-center-bottom-right">
+                    <div className="hwb-progress">
+                      <div className="hwb-progress-num" key={active}>
+                        <strong>{activeStage.number}</strong>
+                        <span>/ 08</span>
+                      </div>
+                      <p className="hwb-progress-label">{activeStage.label}</p>
+                      <div className="hwb-progress-track">
+                        <span className="hwb-progress-fill" />
+                      </div>
+                    </div>
+                    <div className="hwb-mini">
+                      <div className="hwb-mini-track">
+                        {stages.map((s, i) => (
+                          <span key={s.number} className={`hwb-mini-dot${i <= active ? ' is-on' : ''}`} />
+                        ))}
+                      </div>
+                      <p className="hwb-mini-caption">PROGRESS</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <aside className="hwb-right">
-                <p key={`d${active}`} className="hwb-mob-desc">
-                  {activeStage.description}
-                </p>
-                <div className="hwb-anno">
-                  <p key={`m${active}`} className="hwb-anno-row">
-                    MODULE / {activeStage.module}
-                  </p>
-                  <p key={`s${active}`} className="hwb-anno-row">
-                    {activeStage.status}
-                  </p>
-                  <p key={`p${active}`} className="hwb-anno-row">
-                    PIPELINE / {activeStage.number}/08
-                  </p>
-                </div>
-                <div className="hwb-progress">
-                  <div className="hwb-progress-num" key={active}>
-                    <strong>{activeStage.number}</strong>
-                    <span>/ 08</span>
-                  </div>
-                  <p className="hwb-progress-label">{activeStage.label}</p>
-                  <div className="hwb-progress-track">
-                    <span className="hwb-progress-fill" />
-                  </div>
-                </div>
-                <div className="hwb-mini">
-                  <div className="hwb-mini-track">
-                    {stages.map((s, i) => (
-                      <span key={s.number} className={`hwb-mini-dot${i <= active ? ' is-on' : ''}`} />
-                    ))}
-                  </div>
-                  <p className="hwb-mini-caption">PROGRESS</p>
-                </div>
-              </aside>
             </div>
           </div>
         </div>

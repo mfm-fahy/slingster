@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
-const projectTypes = ['LANDING PAGE', 'WEBSITE', 'E-COMMERCE', 'WEB APP', 'MANAGEMENT SYSTEM', 'BRANDING', 'OTHER']
+const projectTypes = ['BUSINESS AUTOMATION', 'LANDING PAGE', 'WEBSITE', 'E-COMMERCE', 'WEB APP', 'MANAGEMENT SYSTEM', 'BRANDING', 'OTHER']
 
 const projectKinds = [
   'STARTING FROM SCRATCH',
