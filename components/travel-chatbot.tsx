@@ -8,7 +8,7 @@ type ChatMessage = { role: 'user' | 'bot'; text: string }
 
 const GREETING: ChatMessage = {
   role: 'bot',
-  text: "Hi, I'm Stony. I can help you explore the site — services, pricing, process and contact details. Ask me anything.",
+  text: "Hey! I'm Stony from Slingster. Need a website, landing page, or branding? Tell me what you're looking for and I'll get you a quick quote.",
 }
 
 export default function TravelChatbot() {
@@ -16,6 +16,7 @@ export default function TravelChatbot() {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING])
   const [busy, setBusy] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const send = async () => {
@@ -34,6 +35,7 @@ export default function TravelChatbot() {
         body: JSON.stringify({ message: clean, history }),
       })
       const data = await res.json().catch(() => null)
+      if (data?.submitted) setSubmitted(true)
       const reply =
         typeof data?.reply === 'string' ? data.reply : 'Sorry, Stony is busy right now. Please try again in a moment.'
       setMessages((current) => [...current, { role: 'bot', text: reply }])
@@ -45,15 +47,52 @@ export default function TravelChatbot() {
     }
   }
 
-  return <>
+  return (
     <div className={`chatbot ${open ? 'is-open' : ''}`}>
-      {open && <motion.div className="chat-panel" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="chat-head"><div><strong>Stony</strong><span>Usually replies instantly</span></div><button onClick={() => setOpen(false)} aria-label="Close chatbot"><X /></button></div>
-        <div className="chat-messages">{messages.map((item, i) => <p className={item.role === 'user' ? 'user-message' : 'bot-message'} key={`${i}-${item.text}`}>{item.text}</p>)}{busy && <p className="bot-message chat-typing">Stony is typing…</p>}</div>
-        <div className="chat-quick"><button onClick={() => setMessage('What services do you offer?')}>Services</button><button onClick={() => setMessage('How much does a project cost?')}>Pricing</button><button onClick={() => setMessage('How does the build process work?')}>Process</button><button onClick={() => setMessage('What are your contact details?')}>Contact</button></div>
-        <form className="chat-input" onSubmit={(event) => { event.preventDefault(); void send() }}><input ref={inputRef} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Ask Stony..." aria-label="Chat message" /><button aria-label="Send message" disabled={busy}><Send /></button></form>
-      </motion.div>}
-      <button className="chat-launcher" onClick={() => setOpen(!open)} aria-label={open ? 'Close chatbot' : 'Open chatbot'}><MessageCircle />{!open && <span>Chat with us</span>}</button>
+      {open && (
+        <motion.div className="chat-panel" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="chat-head">
+            <img src="/section-3/robot.png" alt="Stony" className="chat-avatar" />
+            <div>
+              <strong>Stony</strong>
+              <span>Usually replies instantly</span>
+            </div>
+            <button onClick={() => setOpen(false)} aria-label="Close chatbot">
+              <X />
+            </button>
+          </div>
+          <div className="chat-messages">
+            {messages.map((item, i) => (
+              <div key={`${i}-${item.text}`} className={`chat-bubble ${item.role === 'user' ? 'user-message' : 'bot-message'}`}>
+                {item.role === 'bot' && <img src="/section-3/robot.png" alt="" className="chat-msg-avatar" />}
+                <p>{item.text}</p>
+              </div>
+            ))}
+            {busy && (
+              <div className="chat-bubble bot-message">
+                <img src="/section-3/robot.png" alt="" className="chat-msg-avatar" />
+                <p className="chat-typing">Stony is typing…</p>
+              </div>
+            )}
+          </div>
+          {submitted ? (
+            <div className="chat-submitted">
+              <p>Thanks! We'll get back to you soon.</p>
+            </div>
+          ) : (
+            <form className="chat-input" onSubmit={(event) => { event.preventDefault(); void send() }}>
+              <input ref={inputRef} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Tell me about your project..." aria-label="Chat message" />
+              <button aria-label="Send message" disabled={busy}>
+                <Send />
+              </button>
+            </form>
+          )}
+        </motion.div>
+      )}
+      <button className="chat-launcher" onClick={() => setOpen(!open)} aria-label={open ? 'Close chatbot' : 'Open chatbot'}>
+        <MessageCircle />
+        {!open && <span>Chat with us</span>}
+      </button>
     </div>
-  </>
+  )
 }

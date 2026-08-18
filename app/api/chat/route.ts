@@ -1,24 +1,77 @@
 import { NextResponse } from 'next/server'
 
 const API_URL = 'https://openrouter.ai/api/v1/chat/completions'
-const MAX_TOKENS = 64
-const HISTORY_LIMIT = 6
+const MAX_TOKENS = 150
+const HISTORY_LIMIT = 10
 const MAX_MESSAGE_LENGTH = 500
 
-const SYSTEM_PROMPT =
-  'You are Stony, the friendly assistant for the Slingster website (www.slingster.org). ' +
-  'Your job is to help visitors explore the site and answer questions about it. Reply in 1-3 short sentences. ' +
-  'SITE SECTIONS: #services Services (landing pages, website + logo, e-commerce websites, web & mobile apps, management systems, poster & graphic design; add-ons: marketing/social/Google Ads, AI chatbots, SEO), ' +
-  '#build-system Work (recent projects), #how-we-build Process (8-stage build pipeline from idea to online), ' +
-  '#pricing Pricing (starter to advanced plans), #why-slingster Why Slingster, #guarantee Guarantee, #contact Contact form. ' +
-  'Tell visitors which section to visit for each question. ' +
-  'CONTACT DETAILS (give these when asked): Email slingster.org@gmail.com, ' +
-  'Phone/WhatsApp +91 99439 49439, Website www.slingster.org, ' +
-  'Support hours Monday-Sunday 6:00 PM - 11:30 PM (IST). ' +
-  'For a quote or to start a project, direct them to the Contact form at #contact or give the email/phone. ' +
-  'Never invent details not listed above. Never mention tokens, models, or that you are AI.'
+const WEB3FORMS_ACCESS_KEY = '8a99f4ca-583f-4f85-898f-8b631738926b'
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
+
+const SYSTEM_PROMPT = `You are Stony, the friendly assistant for Slingster (slingster.org), a web design, development and branding studio.
+
+Your job is to collect project inquiry details through a simple, natural conversation. Be warm and concise — reply in 1-3 short sentences max.
+
+SERVICES WE OFFER:
+- Landing pages
+- Website design & development
+- E-commerce stores
+- Web & mobile apps
+- Management systems / admin panels
+- Logo & brand identity
+- Poster & graphic design
+- AI chatbots, SEO, marketing
+
+WHAT TO COLLECT (ask naturally, one or two at a time — don't dump all questions at once):
+1. What they need (service type)
+2. Their name
+3. Their email
+4. Rough budget (optional)
+
+RULES:
+- Be conversational, not robotic. Ask follow-ups based on what they say.
+- Don't ask more than 1-2 questions per message.
+- Don't mention page links, sections, or navigation.
+- Don't mention tokens, models, or that you are AI.
+- Once you have their name, email, and what service they need, end with a JSON block on a new line like this:
+  {"submit":true,"name":"John","email":"john@example.com","service":"Landing page","budget":"$500-$1000","message":"Needs a landing page for his startup"}
+- The message field should be a brief summary of what they need.
+- After sending the JSON block, say something like "Thanks! We'll get back to you soon."
+- If they just want to chat or ask questions without inquiring, just answer normally and don't collect info.`
 
 type ChatLine = { role: 'user' | 'assistant'; content: string }
+
+async function submitToWeb3Forms(data: {
+  name: string
+  email: string
+  service: string
+  budget: string
+  message: string
+}) {
+  try {
+    const formBody = new URLSearchParams({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name: data.name,
+      email: data.email,
+      project_type: data.service,
+      project_kind: 'Chatbot Inquiry',
+      budget: data.budget || 'Not specified',
+      message: data.message,
+    })
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
+      body: formBody,
+    })
+    const body = (await res.json()) as { success?: boolean }
+    return res.ok && body.success === true
+  } catch {
+    return false
+  }
+}
 
 export async function POST(request: Request) {
   const key = process.env.OPENROUTER_API_KEY
@@ -65,5 +118,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Stony is busy right now. Please try again in a moment.' }, { status: 502 })
   }
 
-  return NextResponse.json({ reply })
+  let submitted = false
+  const jsonMatch = reply.match(/\{"submit":\s*true[^}]*\}/)
+  if (jsonMatch) {
+    try {
+      const inquiry = JSON.parse(jsonMatch[0]) as {
+        name?: string
+        email?: string
+        service?: string
+        budget?: string
+        message?: string
+      }
+      if (inquiry.name && inquiry.email && inquiry.service) {
+        submitted = await submitToWeb3Forms({
+          name: inquiry.name,
+          email: inquiry.email,
+          service: inquiry.service,
+          budget: inquiry.budget || '',
+          message: inquiry.message || '',
+        })
+      }
+    } catch {
+      // JSON parse failed, skip submission
+    }
+  }
+
+  return NextResponse.json({ reply, submitted })
 }

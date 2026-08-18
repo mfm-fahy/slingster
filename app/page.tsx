@@ -30,13 +30,13 @@ function App() {
         <img src="/newlogo.png" alt="Slingster logo" className="brand-logo" />
       </a>
       <nav className="desktop-nav" aria-label="Primary navigation">{[{ label: 'Services', href: '#services' }, { label: 'Work', href: '#build-system' }, { label: 'Process', href: '#how-we-build' }, { label: 'Pricing', href: '#pricing' }, { label: 'About', href: '#why-slingster' }].map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</nav>
-      <a className="nav-cta" href="#contact">Start a Project <span className="cta-arrow"><ArrowUpRight /></span></a>
+      <a className="nav-cta" href="#project-form">Start a Project <span className="cta-arrow"><ArrowUpRight /></span></a>
       <button className="menu-trigger" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
     </header>
     {menuOpen && <motion.nav className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} aria-label="Mobile navigation">{[{ label: 'Services', href: '#services' }, { label: 'Work', href: '#build-system' }, { label: 'Process', href: '#how-we-build' }, { label: 'Pricing', href: '#pricing' }, { label: 'About', href: '#why-slingster' }, { label: 'Contact', href: '#contact' }].map((item) => <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}<ArrowUpRight /></a>)}</motion.nav>}
 
       <section className="hero" style={{ position: 'relative', overflow: 'hidden', marginTop: '84px', height: 'calc(100vh - 84px)' }}>
-        <video className="hero-video hero-video-desktop" src="/hero.mp4" autoPlay muted loop playsInline />
+        <video className="hero-video hero-video-desktop" src="/heronew.mp4" autoPlay muted loop playsInline />
         <video className="hero-video hero-video-mobile" src="/vertical-video_v2.mp4" autoPlay muted loop playsInline />
         <div className="hero-copy-wrap">
           <motion.div className="hero-copy" style={{ y: heroY }}>
@@ -45,7 +45,7 @@ function App() {
             <div className="hero-rule" aria-hidden="true" />
             <p className="hero-intro">Modern websites, powerful brands and digital products built to move your business forward.</p>
             <div className="button-row">
-              <a className="button button-primary" href="#contact">Start a Project <ArrowRight /></a>
+              <a className="button button-primary" href="#project-form">Start a Project <ArrowRight /></a>
               <a className="button button-ghost" href="#services">Our Services</a>
             </div>
           </motion.div>

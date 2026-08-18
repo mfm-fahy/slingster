@@ -226,7 +226,7 @@ function ProjectForm() {
             </button>
           </div>
         ) : (
-          <form className="ct-form" onSubmit={handleSubmit} noValidate>
+          <form id="project-form" className="ct-form" onSubmit={handleSubmit} noValidate>
             <fieldset className="ct-field">
               <legend className="ct-legend">
                 <span className="ct-field-label">INPUT / 01</span>
