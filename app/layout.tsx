@@ -52,11 +52,20 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Slingster',
     url: siteUrl,
+    images: [
+      {
+        url: '/newlogo.png',
+        width: 800,
+        height: 800,
+        alt: 'Slingster Logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Slingster — Web Design, Development & Branding Studio',
     description: 'Landing pages, e-commerce, web apps, branding, AI chatbots and SEO.',
+    images: ['/newlogo.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   other: {
@@ -78,7 +87,7 @@ const structuredData = {
       '@type': 'Organization',
       name: 'Slingster',
       url: siteUrl,
-      logo: `${siteUrl}/icon.png`,
+      logo: `${siteUrl}/newlogo.png`,
       description:
         'Independent digital studio building modern websites, powerful brands and digital products — landing pages, e-commerce, web apps, branding, AI chatbots and SEO.',
       contactPoint: {
